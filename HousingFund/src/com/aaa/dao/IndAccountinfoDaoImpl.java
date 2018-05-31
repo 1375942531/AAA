@@ -91,10 +91,15 @@ public class IndAccountinfoDaoImpl extends BaseDaoImpl<Indaccountinfo> implement
 		Serializable save = hibernateTemplate.save(indinfo);
 		Indinfo indinfoEntity = hibernateTemplate.get(Indinfo.class, save.hashCode());
 		Utinaccountinfo utinaccountinfoEntity = hibernateTemplate.get(Utinaccountinfo.class, utinaccountinfoID);
+		System.out.println(utinaccountinfoEntity.getUtinSumPeople());
 		if(utinaccountinfoEntity.getUtinSumPeople() != null){
 			utinaccountinfoEntity.setUtinSumPeople((utinaccountinfoEntity.getUtinSumPeople()+1));
+			utinaccountinfoEntity.setUtinDepositPeople((utinaccountinfoEntity.getUtinDepositPeople()+1));
+			System.out.println(utinaccountinfoEntity.getUtinSumPeople());
 		}else{
 			utinaccountinfoEntity.setUtinSumPeople(1);
+			utinaccountinfoEntity.setUtinDepositPeople((utinaccountinfoEntity.getUtinDepositPeople()+1));
+			System.out.println(utinaccountinfoEntity.getUtinSumPeople());
 		}
 		indaccountinfo.setIndDepositRatio(Float.valueOf(utinaccountinfoEntity.getUtinDepositRatio().toString()));
 		hibernateTemplate.update(utinaccountinfoEntity);
@@ -174,7 +179,6 @@ public class IndAccountinfoDaoImpl extends BaseDaoImpl<Indaccountinfo> implement
 		Utinaccountinfo utinaccountinfoEntity = hibernateTemplate.get(Utinaccountinfo.class, utinaccountinfoID);
 		Indinfo indinfoEntity = hibernateTemplate.get(Indinfo.class, indinfo.getIndInfoId());
 		Indaccountinfo indaccountinfoEntity = hibernateTemplate.get(Indaccountinfo.class, indaccountinfo.getIndAccountId());
-		System.out.println(1112);
 		indinfoEntity.setTrueName(indinfo.getTrueName());
 		indinfoEntity.setIdnumber(indinfo.getIdnumber());
 		indinfoEntity.setFixedPhone(indinfo.getFixedPhone());
